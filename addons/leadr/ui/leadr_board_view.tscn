@@ -1,0 +1,92 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8qe2y4txw6fn"]
+
+[ext_resource type="Script" path="res://addons/leadr/ui/leadr_board_view.gd" id="1_board_view"]
+
+[node name="LeadrBoardView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_board_view")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Leaderboard"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LoadingContainer" type="CenterContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LoadingLabel" type="Label" parent="VBoxContainer/LoadingContainer"]
+layout_mode = 2
+text = "Loading..."
+
+[node name="ErrorContainer" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ErrorLabel" type="Label" parent="VBoxContainer/ErrorContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "An error occurred"
+
+[node name="RetryButton" type="Button" parent="VBoxContainer/ErrorContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Retry"
+
+[node name="EmptyContainer" type="CenterContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EmptyLabel" type="Label" parent="VBoxContainer/EmptyContainer"]
+layout_mode = 2
+text = "No scores yet"
+
+[node name="Footer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Pagination" type="HBoxContainer" parent="VBoxContainer/Footer"]
+layout_mode = 2
+
+[node name="PrevButton" type="Button" parent="VBoxContainer/Footer/Pagination"]
+layout_mode = 2
+text = "< Previous"
+
+[node name="PageInfo" type="Label" parent="VBoxContainer/Footer/Pagination"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+horizontal_alignment = 1
+text = "Page 1"
+
+[node name="NextButton" type="Button" parent="VBoxContainer/Footer/Pagination"]
+layout_mode = 2
+text = "Next >"

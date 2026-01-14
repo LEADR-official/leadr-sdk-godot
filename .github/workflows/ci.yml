@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install gdtoolkit
+        run: pip install "gdtoolkit==4.3.1"
+
+      - name: Check formatting with gdformat
+        run: gdformat --check addons/leadr/**/*.gd
+
+      - name: Lint with gdlint
+        run: gdlint addons/leadr/**/*.gd
+
+  validate:
+    name: Validate Godot Project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Godot
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip -q Godot_v4.3-stable_linux.x86_64.zip
+          chmod +x Godot_v4.3-stable_linux.x86_64
+
+      - name: Validate project
+        run: |
+          # Import project to generate .godot directory
+          ./Godot_v4.3-stable_linux.x86_64 --headless --import . 2>&1 || true
+
+          # Check that the project loads without errors
+          ./Godot_v4.3-stable_linux.x86_64 --headless --path . --quit 2>&1

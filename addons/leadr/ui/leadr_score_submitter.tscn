@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://dne3z5txw7gp"]
+
+[ext_resource type="Script" path="res://addons/leadr/ui/leadr_score_submitter.gd" id="1_submitter"]
+
+[node name="LeadrScoreSubmitter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_submitter")
+
+[node name="Form" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreDisplay" type="Label" parent="Form"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+
+[node name="ScoreInput" type="LineEdit" parent="Form"]
+layout_mode = 2
+placeholder_text = "Enter score..."
+
+[node name="PlayerNameInput" type="LineEdit" parent="Form"]
+layout_mode = 2
+placeholder_text = "Enter your name..."
+
+[node name="ValidationLabel" type="Label" parent="Form"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="SubmitButton" type="Button" parent="Form"]
+layout_mode = 2
+text = "Submit Score"
+
+[node name="FeedbackContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="FeedbackContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Submitting..."

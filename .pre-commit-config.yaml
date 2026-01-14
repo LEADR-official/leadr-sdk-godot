@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/Scony/godot-gdscript-toolkit
+    rev: 4.3.1
+    hooks:
+      - id: gdformat
+        name: gdformat
+        description: "Format GDScript files"
+
+      - id: gdlint
+        name: gdlint
+        description: "Lint GDScript files"
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.tscn$|\.tres$|\.import$'
+
+      - id: end-of-file-fixer
+        exclude: '\.tscn$|\.tres$|\.import$'
+
+      - id: check-yaml
+
+      - id: check-json

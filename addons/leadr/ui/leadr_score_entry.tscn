@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpqe1y3txv5em"]
+
+[ext_resource type="Script" path="res://addons/leadr/ui/leadr_score_entry.gd" id="1_score_entry"]
+
+[node name="LeadrScoreEntry" type="Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_score_entry")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RankLabel" type="Label" parent="Container"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="NameLabel" type="Label" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 3
+
+[node name="ValueLabel" type="Label" parent="Container"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="DateLabel" type="Label" parent="Container"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+horizontal_alignment = 2

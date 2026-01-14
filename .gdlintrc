@@ -1,0 +1,6 @@
+disable:
+  - max-public-methods
+  - max-returns
+  - class-definitions-order
+  - function-preload-variable-name
+  - max-line-length
