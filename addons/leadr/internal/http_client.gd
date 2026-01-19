@@ -56,11 +56,6 @@ func patch_async(endpoint: String, body: Dictionary, headers: Dictionary = {}) -
 	return await _request(HTTPClient.METHOD_PATCH, endpoint, json_body, headers)
 
 
-## Performs an async DELETE request.
-func delete_async(endpoint: String, headers: Dictionary = {}) -> Response:
-	return await _request(HTTPClient.METHOD_DELETE, endpoint, "", headers)
-
-
 func _request(method: int, endpoint: String, body: String, headers: Dictionary) -> Response:
 	var http_request := HTTPRequest.new()
 	_parent_node.add_child(http_request)
