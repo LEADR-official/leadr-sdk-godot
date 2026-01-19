@@ -28,6 +28,7 @@ var _auth_manager: LeadrAuthManager
 var _game_id: String
 var _base_url: String
 var _debug_logging: bool
+var _test_mode: bool
 var _initialized: bool = false
 
 
@@ -38,33 +39,42 @@ func initialize(settings: LeadrSettings) -> void:
 		push_error("LEADR: Invalid settings - %s" % error)
 		return
 
-	_initialize_internal(settings.game_id, settings.base_url, settings.debug_logging)
+	_initialize_internal(
+		settings.game_id, settings.base_url, settings.debug_logging, settings.test_mode
+	)
 
 
 ## Initializes the client with individual parameters.
 func initialize_with_game_id(
-	game_id: String, base_url: String = "https://api.leadrcloud.com", debug_logging: bool = false
+	game_id: String,
+	base_url: String = "https://api.leadrcloud.com",
+	debug_logging: bool = false,
+	test_mode: bool = false
 ) -> void:
 	var settings := LeadrSettings.new()
 	settings.game_id = game_id
 	settings.base_url = base_url
 	settings.debug_logging = debug_logging
+	settings.test_mode = test_mode
 
 	var error := settings.validate()
 	if not error.is_empty():
 		push_error("LEADR: Invalid settings - %s" % error)
 		return
 
-	_initialize_internal(game_id, base_url, debug_logging)
+	_initialize_internal(game_id, base_url, debug_logging, test_mode)
 
 
-func _initialize_internal(game_id: String, base_url: String, debug_logging: bool) -> void:
+func _initialize_internal(
+	game_id: String, base_url: String, debug_logging: bool, test_mode: bool
+) -> void:
 	_game_id = game_id
 	_base_url = base_url.rstrip("/")
 	_debug_logging = debug_logging
+	_test_mode = test_mode
 
 	_http_client = LeadrHttpClient.new(_base_url, _debug_logging, self)
-	_auth_manager = LeadrAuthManager.new(_http_client, _game_id, _debug_logging)
+	_auth_manager = LeadrAuthManager.new(_http_client, _game_id, _debug_logging, _test_mode)
 
 	_auth_manager.session_changed.connect(_on_session_changed)
 	_auth_manager.auth_error.connect(_on_auth_error)

@@ -22,6 +22,11 @@ extends Resource
 ## Sensitive data (tokens, fingerprints) is always redacted.
 @export var debug_logging: bool = false
 
+## Enable test mode for development and QA.
+## When enabled, all scores submitted during this session will be marked as test data.
+## Test scores are excluded from production leaderboards by default.
+@export var test_mode: bool = false
+
 ## UUID regex pattern for validation.
 const UUID_PATTERN := "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
 

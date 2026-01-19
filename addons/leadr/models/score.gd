@@ -33,6 +33,9 @@ var rank: int = 0
 ## True if this is a placeholder score in "around" queries.
 var is_placeholder: bool = false
 
+## True if this score was submitted during a test session.
+var is_test: bool = false
+
 ## When the score was created (ISO 8601).
 var created_at: String = ""
 
@@ -54,6 +57,7 @@ static func from_dict(data: Dictionary) -> LeadrScore:
 	score.metadata = data.get("metadata", {})
 	score.rank = int(data.get("rank", 0))
 	score.is_placeholder = data.get("is_placeholder", false)
+	score.is_test = data.get("is_test", false)
 	score.created_at = data.get("created_at", "")
 	score.updated_at = data.get("updated_at", "")
 

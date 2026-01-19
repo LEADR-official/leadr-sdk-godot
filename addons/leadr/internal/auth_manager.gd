@@ -22,14 +22,18 @@ const REFRESH_THRESHOLD := 120
 var _http_client: LeadrHttpClient
 var _game_id: String
 var _debug_logging: bool
+var _test_mode: bool
 var _is_refreshing: bool = false
 var _refresh_waiters: Array[Callable] = []
 
 
-func _init(http_client: LeadrHttpClient, game_id: String, debug_logging: bool) -> void:
+func _init(
+	http_client: LeadrHttpClient, game_id: String, debug_logging: bool, test_mode: bool
+) -> void:
 	_http_client = http_client
 	_game_id = game_id
 	_debug_logging = debug_logging
+	_test_mode = test_mode
 
 
 ## Starts a new session with the LEADR API.
@@ -42,6 +46,7 @@ func start_session() -> LeadrResult:
 		"game_id": _game_id,
 		"client_fingerprint": fingerprint,
 		"platform": platform,
+		"test_mode": _test_mode,
 	}
 
 	var response := await _http_client.post_async("v1/client/sessions", body)
@@ -64,6 +69,9 @@ func start_session() -> LeadrResult:
 
 	# Store tokens
 	LeadrTokenStorage.save_tokens(session.access_token, session.refresh_token, session.expires_in)
+
+	if _test_mode:
+		push_warning("[LEADR] TEST MODE ACTIVE - Scores will be marked as test data")
 
 	session_changed.emit(session)
 	return LeadrResult.success(session)
