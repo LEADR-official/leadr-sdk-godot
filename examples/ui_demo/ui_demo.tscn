@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkxm8qj2v6nep"]
+
+[ext_resource type="Script" path="res://examples/ui_demo/ui_demo.gd" id="1_demo"]
+[ext_resource type="PackedScene" uid="uid://c8qe2y4txw6fn" path="res://addons/leadr/ui/leadr_board_view.tscn" id="2_board_view"]
+[ext_resource type="PackedScene" uid="uid://dne305txw7gp" path="res://addons/leadr/ui/leadr_score_submitter.tscn" id="3_submitter"]
+
+[node name="UiDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_demo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "LEADR UI Demo"
+horizontal_alignment = 1
+
+[node name="BoardSelector" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BoardSelector"]
+layout_mode = 2
+text = "Board:"
+
+[node name="BoardDropdown" type="OptionButton" parent="MarginContainer/VBoxContainer/BoardSelector"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BoardView" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_board_view")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+scores_per_page = 10
+show_pagination = true
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SubmitSection" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Submitter" parent="MarginContainer/VBoxContainer/SubmitSection" instance=ExtResource("3_submitter")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+show_score_input = false
+clear_on_success = true
+
+[node name="SimulateButton" type="Button" parent="MarginContainer/VBoxContainer/SubmitSection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Simulate Score"
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "Initializing..."
+horizontal_alignment = 1
