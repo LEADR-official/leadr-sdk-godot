@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8qe2y4txw6fn"]
 
-[ext_resource type="Script" path="res://addons/leadr/ui/leadr_board_view.gd" id="1_board_view"]
+[ext_resource type="Script" uid="uid://cpb4j0t040i30" path="res://addons/leadr/ui/leadr_board_view.gd" id="1_board_view"]
 
 [node name="LeadrBoardView" type="Control"]
 layout_mode = 3
@@ -53,8 +53,8 @@ alignment = 1
 
 [node name="ErrorLabel" type="Label" parent="VBoxContainer/ErrorContainer"]
 layout_mode = 2
-horizontal_alignment = 1
 text = "An error occurred"
+horizontal_alignment = 1
 
 [node name="RetryButton" type="Button" parent="VBoxContainer/ErrorContainer"]
 layout_mode = 2
@@ -84,8 +84,8 @@ text = "< Previous"
 [node name="PageInfo" type="Label" parent="VBoxContainer/Footer/Pagination"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-horizontal_alignment = 1
 text = "Page 1"
+horizontal_alignment = 1
 
 [node name="NextButton" type="Button" parent="VBoxContainer/Footer/Pagination"]
 layout_mode = 2

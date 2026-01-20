@@ -43,23 +43,35 @@ var created_at: String = ""
 var updated_at: String = ""
 
 
+## Safely gets a string value from a dictionary, returning default if null or missing.
+static func _get_str(data: Dictionary, key: String, default: String = "") -> String:
+	var val = data.get(key)
+	return val if val != null else default
+
+
+## Safely gets a dictionary value, returning empty dict if null or missing.
+static func _get_dict(data: Dictionary, key: String) -> Dictionary:
+	var val = data.get(key)
+	return val if val != null else {}
+
+
 ## Creates a Score from an API response dictionary.
 static func from_dict(data: Dictionary) -> LeadrScore:
 	var score := LeadrScore.new()
 
-	score.id = data.get("id", "")
-	score.account_id = data.get("account_id", "")
-	score.game_id = data.get("game_id", "")
-	score.board_id = data.get("board_id", "")
-	score.player_name = data.get("player_name", "")
+	score.id = _get_str(data, "id")
+	score.account_id = _get_str(data, "account_id")
+	score.game_id = _get_str(data, "game_id")
+	score.board_id = _get_str(data, "board_id")
+	score.player_name = _get_str(data, "player_name")
 	score.value = float(data.get("value", 0))
-	score.value_display = data.get("value_display", "")
-	score.metadata = data.get("metadata", {})
+	score.value_display = _get_str(data, "value_display")
+	score.metadata = _get_dict(data, "metadata")
 	score.rank = int(data.get("rank", 0))
 	score.is_placeholder = data.get("is_placeholder", false)
 	score.is_test = data.get("is_test", false)
-	score.created_at = data.get("created_at", "")
-	score.updated_at = data.get("updated_at", "")
+	score.created_at = _get_str(data, "created_at")
+	score.updated_at = _get_str(data, "updated_at")
 
 	return score
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bpqe1y3txv5em"]
 
-[ext_resource type="Script" path="res://addons/leadr/ui/leadr_score_entry.gd" id="1_score_entry"]
+[ext_resource type="Script" uid="uid://b0381gswmnotm" path="res://addons/leadr/ui/leadr_score_entry.gd" id="1_score_entry"]
 
 [node name="LeadrScoreEntry" type="Control"]
 custom_minimum_size = Vector2(0, 40)

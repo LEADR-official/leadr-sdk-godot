@@ -22,16 +22,14 @@ The official LEADR leaderboard SDK for Godot 4+.
 
 ### From Godot Asset Library
 
-1. Open your project in Godot
-2. Go to **AssetLib** tab
-3. Search for "LEADR SDK"
-4. Click **Download** and then **Install**
+_Coming soon..._
 
 ### Manual Installation
 
 1. Download or clone this repository
 2. Copy the `addons/leadr` folder into your project's `addons` directory
-3. Enable the plugin: **Project > Project Settings > Plugins > LEADR SDK**
+3. Optionally copy the `examples` folder too
+4. Enable the plugin: **Project > Project Settings > Plugins > LEADR SDK**
 
 ## Quick Start
 

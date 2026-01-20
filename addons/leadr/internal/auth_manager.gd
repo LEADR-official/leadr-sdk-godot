@@ -161,7 +161,7 @@ func get_nonce() -> String:
 	if not data is Dictionary:
 		return ""
 
-	return data.get("nonce", "")
+	return data.get("nonce_value", "")
 
 
 ## Executes an authenticated request with automatic session/token management.

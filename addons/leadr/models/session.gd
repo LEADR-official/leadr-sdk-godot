@@ -42,27 +42,39 @@ var first_seen_at: String = ""
 var last_seen_at: String = ""
 
 
+## Safely gets a string value from a dictionary, returning default if null or missing.
+static func _get_str(data: Dictionary, key: String, default: String = "") -> String:
+	var val = data.get(key)
+	return val if val != null else default
+
+
+## Safely gets a dictionary value, returning empty dict if null or missing.
+static func _get_dict(data: Dictionary, key: String) -> Dictionary:
+	var val = data.get(key)
+	return val if val != null else {}
+
+
 ## Creates a Session from an API response dictionary.
 static func from_dict(data: Dictionary) -> LeadrSession:
 	var session := LeadrSession.new()
 
-	session.access_token = data.get("access_token", "")
-	session.refresh_token = data.get("refresh_token", "")
+	session.access_token = _get_str(data, "access_token")
+	session.refresh_token = _get_str(data, "refresh_token")
 	session.expires_in = data.get("expires_in", 0)
 
 	# Device info is nested
 	var device: Dictionary = data.get("device", {})
-	session.device_id = device.get("id", "")
-	session.client_fingerprint = device.get("client_fingerprint", "")
-	session.platform = device.get("platform", "")
-	session.status = device.get("status", "")
-	session.first_seen_at = device.get("first_seen_at", "")
-	session.last_seen_at = device.get("last_seen_at", "")
+	session.device_id = _get_str(device, "id")
+	session.client_fingerprint = _get_str(device, "client_fingerprint")
+	session.platform = _get_str(device, "platform")
+	session.status = _get_str(device, "status")
+	session.first_seen_at = _get_str(device, "first_seen_at")
+	session.last_seen_at = _get_str(device, "last_seen_at")
 
 	# Session info may be nested or at top level
 	var session_data: Dictionary = data.get("session", data)
-	session.game_id = session_data.get("game_id", "")
-	session.account_id = session_data.get("account_id", "")
-	session.metadata = session_data.get("metadata", {})
+	session.game_id = _get_str(session_data, "game_id")
+	session.account_id = _get_str(session_data, "account_id")
+	session.metadata = _get_dict(session_data, "metadata")
 
 	return session

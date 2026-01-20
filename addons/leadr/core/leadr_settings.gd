@@ -27,8 +27,8 @@ extends Resource
 ## Test scores are excluded from production leaderboards by default.
 @export var test_mode: bool = false
 
-## UUID regex pattern for validation.
-const UUID_PATTERN := "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+## Game ID regex pattern for validation.
+const ID_PATTERN := "^(gam_)?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
 
 
 ## Validates the settings and returns an error message if invalid.
@@ -38,7 +38,7 @@ func validate() -> String:
 		return "game_id is required"
 
 	var uuid_regex := RegEx.new()
-	uuid_regex.compile(UUID_PATTERN)
+	uuid_regex.compile(ID_PATTERN)
 	if not uuid_regex.search(game_id):
 		return "game_id must be a valid UUID"
 

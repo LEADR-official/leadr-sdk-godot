@@ -59,27 +59,33 @@ var created_at: String = ""
 var updated_at: String = ""
 
 
+## Safely gets a string value from a dictionary, returning default if null or missing.
+static func _get_str(data: Dictionary, key: String, default: String = "") -> String:
+	var val = data.get(key)
+	return val if val != null else default
+
+
 ## Creates a Board from an API response dictionary.
 static func from_dict(data: Dictionary) -> LeadrBoard:
 	var board := LeadrBoard.new()
 
-	board.id = data.get("id", "")
-	board.account_id = data.get("account_id", "")
-	board.game_id = data.get("game_id", "")
-	board.name = data.get("name", "")
-	board.slug = data.get("slug", "")
-	board.short_code = data.get("short_code", "")
-	board.icon = data.get("icon", "")
-	board.unit = data.get("unit", "")
+	board.id = _get_str(data, "id")
+	board.account_id = _get_str(data, "account_id")
+	board.game_id = _get_str(data, "game_id")
+	board.name = _get_str(data, "name")
+	board.slug = _get_str(data, "slug")
+	board.short_code = _get_str(data, "short_code")
+	board.icon = _get_str(data, "icon")
+	board.unit = _get_str(data, "unit")
 	board.is_active = data.get("is_active", true)
 	board.is_published = data.get("is_published", true)
-	board.sort_direction = data.get("sort_direction", "descending")
-	board.keep_strategy = data.get("keep_strategy", "all")
-	board.description = data.get("description", "")
-	board.starts_at = data.get("starts_at", "")
-	board.ends_at = data.get("ends_at", "")
-	board.created_at = data.get("created_at", "")
-	board.updated_at = data.get("updated_at", "")
+	board.sort_direction = _get_str(data, "sort_direction", "descending")
+	board.keep_strategy = _get_str(data, "keep_strategy", "all")
+	board.description = _get_str(data, "description")
+	board.starts_at = _get_str(data, "starts_at")
+	board.ends_at = _get_str(data, "ends_at")
+	board.created_at = _get_str(data, "created_at")
+	board.updated_at = _get_str(data, "updated_at")
 
 	# Parse tags array
 	var tags_data: Variant = data.get("tags", [])

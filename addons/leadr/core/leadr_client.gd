@@ -107,14 +107,26 @@ func get_board(board_slug: String) -> LeadrResult:
 	_ensure_initialized()
 
 	var endpoint := (
-		"v1/client/boards/%s?game_id=%s" % [board_slug.uri_encode(), _game_id.uri_encode()]
+		"v1/client/boards?game_id=%s&slug=%s" % [_game_id.uri_encode(), board_slug.uri_encode()]
 	)
 
-	return await _auth_manager.execute_authenticated(
+	var result := await _auth_manager.execute_authenticated(
 		func(headers: Dictionary): return await _http_client.get_async(endpoint, headers),
-		func(json: Dictionary): return LeadrBoard.from_dict(json),
+		_parse_single_board,
 		false
 	)
+
+	if result.is_success and result.data == null:
+		return LeadrResult.failure_from(404, "not_found", "Board '%s' not found" % board_slug)
+
+	return result
+
+
+static func _parse_single_board(json: Dictionary) -> Variant:
+	var data_array: Variant = json.get("data", [])
+	if data_array is Array and data_array.size() > 0:
+		return LeadrBoard.from_dict(data_array[0])
+	return null
 
 
 func _get_boards_internal(limit: int, cursor: String) -> LeadrResult:

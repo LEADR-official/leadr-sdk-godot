@@ -38,6 +38,12 @@ var _prev_cursor: String = ""
 var _fetch_page: Callable
 
 
+## Safely gets a string value from a dictionary, returning default if null or missing.
+static func _get_str(data: Dictionary, key: String, default: String = "") -> String:
+	var val = data.get(key)
+	return val if val != null else default
+
+
 ## Creates a PagedResult from an API response.
 ## [param json] - The API response dictionary
 ## [param item_parser] - Callable that takes a Dictionary and returns the parsed item
@@ -62,8 +68,8 @@ static func from_dict(
 		result.count = pagination.get("count", result.items.size())
 		result.has_next = pagination.get("has_next", false)
 		result.has_prev = pagination.get("has_prev", false)
-		result._next_cursor = pagination.get("next_cursor", "")
-		result._prev_cursor = pagination.get("prev_cursor", "")
+		result._next_cursor = _get_str(pagination, "next_cursor")
+		result._prev_cursor = _get_str(pagination, "prev_cursor")
 	else:
 		result.count = result.items.size()
 

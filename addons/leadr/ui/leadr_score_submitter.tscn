@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dne3z5txw7gp"]
+[gd_scene load_steps=2 format=3 uid="uid://dne305txw7gp"]
 
-[ext_resource type="Script" path="res://addons/leadr/ui/leadr_score_submitter.gd" id="1_submitter"]
+[ext_resource type="Script" uid="uid://c8reg7n830cyg" path="res://addons/leadr/ui/leadr_score_submitter.gd" id="1_submitter"]
 
 [node name="LeadrScoreSubmitter" type="Control"]
 layout_mode = 3
