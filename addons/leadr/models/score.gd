@@ -14,6 +14,9 @@ var game_id: String = ""
 ## Board ID this score is on.
 var board_id: String = ""
 
+## Identity ID that submitted this score (e.g., "ide_...").
+var identity_id: String = ""
+
 ## Player's display name.
 var player_name: String = ""
 
@@ -63,6 +66,7 @@ static func from_dict(data: Dictionary) -> LeadrScore:
 	score.account_id = _get_str(data, "account_id")
 	score.game_id = _get_str(data, "game_id")
 	score.board_id = _get_str(data, "board_id")
+	score.identity_id = _get_str(data, "identity_id")
 	score.player_name = _get_str(data, "player_name")
 	score.value = float(data.get("value", 0))
 	score.value_display = _get_str(data, "value_display")
