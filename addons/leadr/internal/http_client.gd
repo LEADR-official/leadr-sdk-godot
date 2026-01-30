@@ -29,12 +29,28 @@ class Response:
 var _base_url: String
 var _debug_logging: bool
 var _parent_node: Node
+var _leadr_client_header: String
+var _user_agent_header: String
 
 
 func _init(base_url: String, debug_logging: bool, parent_node: Node) -> void:
 	_base_url = base_url.rstrip("/")
 	_debug_logging = debug_logging
 	_parent_node = parent_node
+
+	var ver := LeadrVersion.VALUE
+	var engine_info := Engine.get_version_info()
+	var runtime := "godot-%s.%s" % [engine_info["major"], engine_info["minor"]]
+	var platform := OS.get_name().to_lower()
+	var arch := Engine.get_architecture_name()
+
+	_leadr_client_header = (
+		"sdk-godot; v=%s; runtime=%s; platform=%s; arch=%s" % [ver, runtime, platform, arch]
+	)
+	_user_agent_header = (
+		"LEADR-SDK-Godot/%s (Godot %s.%s; %s)"
+		% [ver, engine_info["major"], engine_info["minor"], OS.get_name()]
+	)
 
 
 ## Performs an async GET request.
@@ -106,6 +122,8 @@ func _build_url(endpoint: String) -> String:
 
 func _build_headers(headers: Dictionary) -> PackedStringArray:
 	var result := PackedStringArray()
+	result.append("LEADR-Client: %s" % _leadr_client_header)
+	result.append("User-Agent: %s" % _user_agent_header)
 	for key: String in headers:
 		result.append("%s: %s" % [key, headers[key]])
 	return result
