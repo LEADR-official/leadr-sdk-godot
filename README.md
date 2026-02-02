@@ -46,7 +46,7 @@ Create a `LeadrSettings` resource with your game ID:
 
 Add the LEADR client as an autoload singleton:
 
-1. Go to **Project > Project Settings > Autoload**
+1. Go to **Project > Project Settings > Globals > Autoload**
 2. Add `res://addons/leadr/autoload/leadr_autoload.gd`
 3. Set the name to `Leadr`
 4. Click **Add**

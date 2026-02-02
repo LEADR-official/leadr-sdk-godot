@@ -94,8 +94,8 @@ func refresh_token() -> LeadrResult:
 		)
 		return LeadrResult.failure_from(401, "no_refresh_token", "No refresh token available")
 
-	var headers := {"Authorization": "Bearer %s" % refresh_token}
-	var response := await _http_client.post_async("v1/client/sessions/refresh", {}, headers)
+	var body := {"refresh_token": refresh_token}
+	var response := await _http_client.post_async("v1/client/sessions/refresh", body)
 
 	if response.is_network_error:
 		_is_refreshing = false
