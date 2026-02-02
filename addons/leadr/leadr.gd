@@ -11,8 +11,8 @@ func _get_plugin_name() -> String:
 
 
 func _enter_tree() -> void:
-	pass
+	add_autoload_singleton("Leadr", "res://addons/leadr/autoload/leadr_autoload.gd")
 
 
 func _exit_tree() -> void:
-	pass
+	remove_autoload_singleton("Leadr")

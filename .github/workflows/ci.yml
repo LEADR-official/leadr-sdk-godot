@@ -41,8 +41,5 @@ jobs:
 
       - name: Validate project
         run: |
-          # Import project to generate .godot directory
-          ./Godot_v4.3-stable_linux.x86_64 --headless --import . 2>&1 || true
-
-          # Check that the project loads without errors
-          ./Godot_v4.3-stable_linux.x86_64 --headless --path . --quit 2>&1
+          # Import project to validate it loads without errors
+          ./Godot_v4.3-stable_linux.x86_64 --headless --import . 2>&1

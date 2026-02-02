@@ -15,6 +15,10 @@ config/description="Official LEADR leaderboard SDK for Godot 4+"
 config/version="0.1.0"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
+[autoload]
+
+Leadr="*res://addons/leadr/autoload/leadr_autoload.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/leadr/plugin.cfg")
