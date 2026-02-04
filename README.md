@@ -39,7 +39,7 @@ Create a `LeadrSettings` resource with your game ID:
 
 1. In the FileSystem dock, right-click and select **New Resource**
 2. Search for and select **LeadrSettings**
-3. Set your `game_id` (get this from the LEADR dashboard)
+3. Set your `game_id` (get this from the LEADR app)
 4. Save as `res://leadr_settings.tres`
 
 ### 2. Add Autoload
@@ -152,4 +152,4 @@ addons/leadr/
 
 - Documentation: [docs.leadr.gg](https://docs.leadr.gg)
 - Issues: [GitHub Issues](https://github.com/LEADR-official/leadr-sdk-godot/issues)
-- Discord: [LEADR Community](https://discord.gg/leadr)
+- Discord: [LEADR Community](https://discord.gg/RMUukcAxSZ)
