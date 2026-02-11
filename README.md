@@ -1,10 +1,10 @@
 # LEADR SDK for Godot
 
-The official LEADR leaderboard SDK for Godot 4+.
-
 [![Godot v4+](https://img.shields.io/badge/Godot-v4+-478CBF?logo=godotengine&logoColor=white&style=for-the-badge)](https://godotengine.org)
 [![CI](https://github.com/LEADR-official/leadr-sdk-godot/actions/workflows/ci.yml/badge.svg)](https://github.com/LEADR-official/leadr-sdk-godot/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+Add cross-platform leaderboards to your game in minutes with the official LEADR SDK for Godot Engine 4+.
 
 > **New to LEADR?** Follow the [Quick Start guide](https://docs.leadr.gg/latest/quick-start/)
 > to create your account and set up your first leaderboard.
@@ -83,6 +83,10 @@ func _ready() -> void:
 | `debug_logging` | bool | `false` | Enable verbose logging |
 | `test_mode` | bool | `false` | Mark scores as test data |
 
+## Examples
+
+Copy the `examples` folder into your project to explore sample scenes demonstrating SDK features.
+
 ## What's Next
 
 - **[Full Integration Guide](https://docs.leadr.gg/latest/sdks/godot/)** - Complete documentation with UI components, advanced usage, and troubleshooting
@@ -92,5 +96,5 @@ func _ready() -> void:
 ## Need Help?
 
 - [Discord](https://discord.gg/RMUukcAxSZ)
-- [Full Documentation](https://docs.leadr.gg/latest/features)
+- [Full Documentation](https://docs.leadr.gg/latest)
 - [Report an issue](https://github.com/LEADR-official/leadr-sdk-godot/issues)
