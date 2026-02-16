@@ -70,6 +70,13 @@ func _ready() -> void:
         print("Score submitted! Rank: #%d" % submit_result.data.rank)
     else:
         print("Error: %s" % submit_result.error.message)
+
+    # Get your own scores on a board
+    var my_scores_result := await Leadr.get_my_scores("brd_your_board_id", 10)
+    if my_scores_result.is_success:
+        print("Your scores on this board:")
+        for score in my_scores_result.data.items:
+            print("  #%d: %s (%s)" % [score.rank, score.get_display_value(), score.created_at])
 ```
 
 ## Configuration

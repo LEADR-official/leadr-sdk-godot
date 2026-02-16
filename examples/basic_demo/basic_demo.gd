@@ -8,6 +8,7 @@ extends Node
 ## - Fetching top scores
 ## - Fetching scores "around" a specific value
 ## - Submitting a new score
+## - Fetching the current player's own scores
 ##
 ## Setup:
 ## 1. Enable the LEADR plugin in Project Settings > Plugins
@@ -111,6 +112,28 @@ func _run_demo() -> void:
 
 	var submitted_score: LeadrScore = submit_result.data
 	_log("Score submitted! Rank: #%d, ID: %s" % [submitted_score.rank, submitted_score.id])
+
+	# Step 8: Fetch the current player's scores
+	_log("Fetching your scores on this board...")
+	var my_scores_result := await Leadr.get_my_scores(board.id, 5)
+
+	if not my_scores_result.is_success:
+		_log_error("Failed to fetch my scores: %s" % my_scores_result.error.message)
+		return
+
+	var my_scores_page: LeadrPagedResult = my_scores_result.data
+
+	if my_scores_page.is_empty():
+		_log("No scores found for your identity on this board")
+	else:
+		_log("Your %d score(s) on this board:" % my_scores_page.count)
+		for score: LeadrScore in my_scores_page.items:
+			_log(
+				(
+					"  #%d: %s (%s)"
+					% [score.rank, score.get_display_value(), score.get_relative_time()]
+				)
+			)
 
 	_log("Demo complete!")
 

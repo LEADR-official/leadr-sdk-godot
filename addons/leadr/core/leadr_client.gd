@@ -267,6 +267,70 @@ func _get_scores_internal(
 	)
 
 
+## Gets scores for the current authenticated identity (player) on a board.
+## This returns all scores submitted by the current player on the specified board.
+## [param board_id] - The board ID (not slug)
+## [param limit] - Number of scores per page (1-100)
+## [param sort] - Sort direction override ("ascending" or "descending")
+## [param around_score_id] - Center results around this score ID
+## [param around_score_value] - Center results around this score value
+## Note: around_score_id and around_score_value are mutually exclusive.
+## Returns LeadrResult with LeadrPagedResult containing LeadrScore items.
+func get_my_scores(
+	board_id: String,
+	limit: int = 20,
+	sort: String = "",
+	around_score_id: String = "",
+	around_score_value: float = NAN
+) -> LeadrResult:
+	return await _get_my_scores_internal(
+		board_id, limit, sort, around_score_id, around_score_value, ""
+	)
+
+
+func _get_my_scores_internal(
+	board_id: String,
+	limit: int,
+	sort: String,
+	around_score_id: String,
+	around_score_value: float,
+	cursor: String
+) -> LeadrResult:
+	_ensure_initialized()
+
+	# Build endpoint with identity_id=me to get current player's scores
+	var endpoint := (
+		"v1/client/scores?board_id=%s&identity_id=me&limit=%d"
+		% [board_id.uri_encode(), clampi(limit, 1, 100)]
+	)
+
+	if not sort.is_empty():
+		endpoint += "&sort=%s" % sort.uri_encode()
+
+	# Around parameters (mutually exclusive with cursor)
+	if cursor.is_empty():
+		if not around_score_id.is_empty():
+			endpoint += "&around_score_id=%s" % around_score_id.uri_encode()
+		elif not is_nan(around_score_value):
+			endpoint += "&around_score_value=%s" % str(around_score_value)
+
+	if not cursor.is_empty():
+		endpoint += "&cursor=%s" % cursor.uri_encode()
+
+	# Create closure for pagination (only cursor-based, not "around")
+	var fetch_page := func(c: String): return await _get_my_scores_internal(
+		board_id, limit, sort, "", NAN, c
+	)
+
+	return await _auth_manager.execute_authenticated(
+		func(headers: Dictionary): return await _http_client.get_async(endpoint, headers),
+		func(json: Dictionary): return LeadrPagedResult.from_dict(
+			json, LeadrScore.from_dict, fetch_page
+		),
+		false
+	)
+
+
 # =============================================================================
 # Session Operations
 # =============================================================================
