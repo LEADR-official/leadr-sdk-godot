@@ -12,6 +12,7 @@ const KEY_FINGERPRINT := "client_fingerprint"
 const KEY_ACCESS_TOKEN := "access_token"
 const KEY_REFRESH_TOKEN := "refresh_token"
 const KEY_EXPIRES_AT := "token_expires_at"
+const KEY_TEST_MODE := "test_mode"
 
 
 ## Gets the stored client fingerprint, or empty string if not set.
@@ -37,6 +38,16 @@ static func get_refresh_token() -> String:
 ## Gets the token expiration timestamp (Unix seconds), or 0 if not set.
 static func get_expires_at() -> int:
 	return _get_value(KEY_EXPIRES_AT, 0)
+
+
+## Gets the stored test mode flag, or false if not set.
+static func get_test_mode() -> bool:
+	return _get_value(KEY_TEST_MODE, false)
+
+
+## Sets the test mode flag.
+static func set_test_mode(value: bool) -> void:
+	_set_value(KEY_TEST_MODE, value)
 
 
 ## Saves authentication tokens.
@@ -72,12 +83,13 @@ static func is_token_expired() -> bool:
 	return now >= expires_at
 
 
-## Clears all stored tokens (but keeps fingerprint).
+## Clears all stored tokens and test mode flag (but keeps fingerprint).
 static func clear_tokens() -> void:
 	var config := _load_config()
 	config.set_value(SECTION, KEY_ACCESS_TOKEN, "")
 	config.set_value(SECTION, KEY_REFRESH_TOKEN, "")
 	config.set_value(SECTION, KEY_EXPIRES_AT, 0)
+	config.set_value(SECTION, KEY_TEST_MODE, false)
 	_save_config(config)
 
 

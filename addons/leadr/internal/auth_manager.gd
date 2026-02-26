@@ -67,8 +67,9 @@ func start_session() -> LeadrResult:
 
 	var session := LeadrSession.from_dict(data)
 
-	# Store tokens
+	# Store tokens and test mode
 	LeadrTokenStorage.save_tokens(session.access_token, session.refresh_token, session.expires_in)
+	LeadrTokenStorage.set_test_mode(_test_mode)
 
 	if _test_mode:
 		push_warning("[LEADR] TEST MODE ACTIVE - Scores will be marked as test data")

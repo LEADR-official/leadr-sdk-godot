@@ -79,6 +79,11 @@ func _initialize_internal(
 	_auth_manager.session_changed.connect(_on_session_changed)
 	_auth_manager.auth_error.connect(_on_auth_error)
 
+	# Clear cached session if test_mode changed since last session
+	if LeadrTokenStorage.has_token() and LeadrTokenStorage.get_test_mode() != test_mode:
+		LeadrTokenStorage.clear_tokens()
+		push_warning("[LEADR] Session cleared: test_mode changed")
+
 	_initialized = true
 
 	if _debug_logging:
