@@ -2,27 +2,20 @@ extends LeadrClient
 ## Autoload helper for the LEADR SDK.
 ##
 ## Add this script as an autoload in Project Settings with the name "Leadr".
-## If a LeadrSettings resource exists at "res://leadr_settings.tres",
+## If a LeadrSettings resource exists at "res://addons/leadr/leadr_settings.tres",
 ## it will be loaded automatically.
 ##
 ## Setup:
 ## 1. Enable the LEADR SDK plugin in Project Settings > Plugins
 ## 2. Create a LeadrSettings resource: Right-click in FileSystem > New Resource > LeadrSettings
 ## 3. Configure your game_id in the resource
-## 4. Save the resource as "res://leadr_settings.tres"
+## 4. Save the resource as "res://addons/leadr/leadr_settings.tres"
 ## 5. Add this script as an autoload: Project Settings > Autoload >
 ##    Path: "res://addons/leadr/autoload/leadr_autoload.gd", Name: "Leadr"
 ##
-## Usage:
-## [codeblock]
-## # From anywhere in your game
-## var result := await Leadr.get_boards()
-## if result.is_success:
-##     for board in result.data.items:
-##         print(board.name)
-## [/codeblock]
+## Docs: https://docs.leadr.gg/latest/sdks/godot/
 
-const SETTINGS_PATH := "res://leadr_settings.tres"
+const SETTINGS_PATH := "res://addons/leadr/leadr_settings.tres"
 
 
 func _ready() -> void:
