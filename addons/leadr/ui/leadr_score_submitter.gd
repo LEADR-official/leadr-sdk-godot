@@ -56,7 +56,7 @@ signal validation_changed(is_valid: bool)
 var client: LeadrClient
 
 var _state: State = State.IDLE
-var _score_value: int = 0
+var _score_value: float = 0.0
 var _resolved_board: LeadrBoard
 var _last_submitted_score: LeadrScore
 
@@ -145,7 +145,7 @@ func _create_ui() -> void:
 
 ## Sets the score value programmatically.
 ## Use this when the score is determined by the game (not user input).
-func set_score(value: int) -> void:
+func set_score(value: float) -> void:
 	_score_value = value
 	if _score_label:
 		_score_label.text = str(value)
@@ -153,7 +153,7 @@ func set_score(value: int) -> void:
 
 
 ## Gets the current score value.
-func get_score() -> int:
+func get_score() -> float:
 	return _score_value
 
 
@@ -185,7 +185,7 @@ func clear_form() -> void:
 		_name_input.text = ""
 	if _score_input:
 		_score_input.text = ""
-	_score_value = 0
+	_score_value = 0.0
 	if _score_label:
 		_score_label.text = "0"
 	_validate()
@@ -261,12 +261,12 @@ func _get_validation_error() -> String:
 	return ""
 
 
-func _get_score_value() -> int:
+func _get_score_value() -> float:
 	if show_score_input and _score_input:
 		var text := _score_input.text.strip_edges()
-		if text.is_valid_int():
-			return text.to_int()
-		return -1
+		if text.is_valid_float():
+			return text.to_float()
+		return -1.0
 	return _score_value
 
 

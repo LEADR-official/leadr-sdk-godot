@@ -203,7 +203,7 @@ func get_score(score_id: String) -> LeadrResult:
 ## Returns LeadrResult with LeadrScore (including assigned rank).
 func submit_score(
 	board_id: String,
-	value: int,
+	value: float,
 	player_name: String,
 	value_display: String = "",
 	metadata: Dictionary = {}
