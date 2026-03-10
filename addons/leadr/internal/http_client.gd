@@ -74,6 +74,7 @@ func patch_async(endpoint: String, body: Dictionary, headers: Dictionary = {}) -
 
 func _request(method: int, endpoint: String, body: String, headers: Dictionary) -> Response:
 	var http_request := HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	_parent_node.add_child(http_request)
 
 	var url := _build_url(endpoint)
