@@ -74,6 +74,9 @@ var board_type: BoardType = BoardType.RUN_IDENTITY
 ## Contains keys like "numerator_unit", "denominator_unit", etc.
 var ratio_config: Dictionary = {}
 
+## Whether player names must be unique per identity on this board.
+var unique_player_names: bool = false
+
 
 ## Safely gets a string value from a dictionary, returning default if null or missing.
 static func _get_str(data: Dictionary, key: String, default: String = "") -> String:
@@ -160,6 +163,7 @@ static func from_dict(data: Dictionary) -> LeadrBoard:
 	# New fields
 	board.board_type = _parse_board_type(_get_str(data, "board_type"))
 	board.ratio_config = _get_dict(data, "ratio_config")
+	board.unique_player_names = data.get("unique_player_names", false)
 
 	return board
 

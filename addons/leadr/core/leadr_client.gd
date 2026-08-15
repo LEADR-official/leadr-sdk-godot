@@ -337,6 +337,32 @@ func _get_my_scores_internal(
 
 
 # =============================================================================
+# Player Name Operations
+# =============================================================================
+
+
+## Checks if a player name is available on boards with unique_player_names enabled.
+## [param player_name] - The player name to check.
+## [param board_ids] - Optional array of board IDs to check. If empty, checks all game boards.
+## Returns LeadrResult with LeadrPlayerNameCheckResult.
+func check_player_name_availability(
+	player_name: String, board_ids: PackedStringArray = PackedStringArray()
+) -> LeadrResult:
+	_ensure_initialized()
+
+	var endpoint := "v1/client/player-names/check?name=%s" % player_name.uri_encode()
+
+	if board_ids.size() > 0:
+		endpoint += "&board_ids=%s" % ",".join(board_ids).uri_encode()
+
+	return await _auth_manager.execute_authenticated(
+		func(headers: Dictionary): return await _http_client.get_async(endpoint, headers),
+		func(json: Dictionary): return LeadrPlayerNameCheckResult.from_dict(json),
+		false
+	)
+
+
+# =============================================================================
 # Session Operations
 # =============================================================================
 
