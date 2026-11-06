@@ -100,6 +100,24 @@ Copy the `examples` folder into your project to explore sample scenes demonstrat
 - **[Examples](./examples/)** - Sample scenes demonstrating SDK features
 - **[Join the Community!](https://discord.gg/RMUukcAxSZ){"target"="_blank"}** - Get support and inspiration on the LEADR Discord
 
+## Releasing (Maintainers)
+
+Version is tracked in 3 files (kept in sync by CI):
+
+- `addons/leadr/plugin.cfg`
+- `addons/leadr/internal/version.gd`
+- `project.godot`
+
+To release a new version:
+
+```bash
+./scripts/release.sh X.Y.Z
+git push && git push --tags
+gh release create vX.Y.Z leadr-sdk-godot-vX.Y.Z.zip --title "vX.Y.Z" --generate-notes
+```
+
+The script updates all version files, commits, tags, and creates the distribution ZIP.
+
 ## Need Help?
 
 - [Discord](https://discord.gg/RMUukcAxSZ)
