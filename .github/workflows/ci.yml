@@ -43,3 +43,25 @@ jobs:
         run: |
           # Import project to validate it loads without errors
           ./Godot_v4.3-stable_linux.x86_64 --headless --import . 2>&1
+
+  version-check:
+    name: Version Sync Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check versions match
+        run: |
+          PLUGIN_VER=$(grep '^version=' addons/leadr/plugin.cfg | cut -d'"' -f2)
+          GD_VER=$(grep '^const VALUE' addons/leadr/internal/version.gd | cut -d'"' -f2)
+          PROJECT_VER=$(grep '^config/version=' project.godot | cut -d'"' -f2)
+
+          echo "plugin.cfg: $PLUGIN_VER"
+          echo "version.gd: $GD_VER"
+          echo "project.godot: $PROJECT_VER"
+
+          if [[ "$PLUGIN_VER" != "$GD_VER" || "$PLUGIN_VER" != "$PROJECT_VER" ]]; then
+            echo "::error::Version mismatch! All 3 files must have same version."
+            exit 1
+          fi
+          echo "All versions match: $PLUGIN_VER"
