@@ -9,6 +9,7 @@ const STORAGE_PATH := "user://leadr_credentials.cfg"
 const SECTION := "leadr"
 
 const KEY_FINGERPRINT := "client_fingerprint"
+const KEY_PERSISTENT_DEVICE_ID := "persistent_device_id"
 const KEY_ACCESS_TOKEN := "access_token"
 const KEY_REFRESH_TOKEN := "refresh_token"
 const KEY_EXPIRES_AT := "token_expires_at"
@@ -23,6 +24,16 @@ static func get_fingerprint() -> String:
 ## Sets the client fingerprint.
 static func set_fingerprint(fingerprint: String) -> void:
 	_set_value(KEY_FINGERPRINT, fingerprint)
+
+
+## Gets the stored persistent device ID (fallback for platforms without OS.get_unique_id).
+static func get_persistent_device_id() -> String:
+	return _get_value(KEY_PERSISTENT_DEVICE_ID, "")
+
+
+## Sets the persistent device ID.
+static func set_persistent_device_id(device_id: String) -> void:
+	_set_value(KEY_PERSISTENT_DEVICE_ID, device_id)
 
 
 ## Gets the stored access token, or empty string if not set.

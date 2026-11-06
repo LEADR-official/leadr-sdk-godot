@@ -27,7 +27,11 @@ static func generate() -> String:
 	components.append(OS.get_name())
 
 	# Hardware identifier (device-specific ID)
-	components.append(OS.get_unique_id())
+	# OS.get_unique_id() returns empty on web/desktop platforms, use fallback
+	var unique_id := OS.get_unique_id()
+	if unique_id.is_empty():
+		unique_id = _get_or_create_persistent_id()
+	components.append(unique_id)
 
 	# GPU identifier
 	components.append(RenderingServer.get_video_adapter_name())
@@ -51,3 +55,30 @@ static func _get_processor_name() -> String:
 
 	# Fallback for older versions
 	return "unknown_cpu"
+
+
+## Gets or creates a persistent device ID for platforms without OS.get_unique_id().
+## Used as fallback on Web, Windows, macOS, Linux where get_unique_id() returns empty.
+static func _get_or_create_persistent_id() -> String:
+	var stored := LeadrTokenStorage.get_persistent_device_id()
+	if not stored.is_empty():
+		return stored
+
+	var new_id := _generate_uuid_v4()
+	LeadrTokenStorage.set_persistent_device_id(new_id)
+	return new_id
+
+
+## Generates a random UUID v4 (RFC 4122 compliant).
+## Returns a 32-character lowercase hex string (no dashes).
+static func _generate_uuid_v4() -> String:
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	var bytes := PackedByteArray()
+	for i in range(16):
+		bytes.append(rng.randi() % 256)
+	# Set version 4 (random) in bits 12-15 of time_hi_and_version
+	bytes[6] = (bytes[6] & 0x0f) | 0x40
+	# Set variant (RFC 4122) in bits 6-7 of clock_seq_hi_and_reserved
+	bytes[8] = (bytes[8] & 0x3f) | 0x80
+	return bytes.hex_encode()
